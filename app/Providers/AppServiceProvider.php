@@ -11,7 +11,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        //untuk bisa tampil css di Ngrok
+        // if (env(key: 'APP_ENV') !=='local') {
+        //     URL::forceScheme(scheme:'https');
+        // }
+        //untuk bisa tampil css di Ngrok
     }
 
     /**
@@ -21,4 +25,5 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
+    
 }

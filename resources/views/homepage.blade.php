@@ -7,6 +7,9 @@
   <title>Mulia Raya Hospital</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
+  {{-- script untuk tampil di NGROK --}}
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  {{-- end script untuk tampil di NGROK --}}
 
   <!-- Favicons -->
   {{-- <link href="{{url('Homepage/assets/img/favicon.png')}}" rel="icon"> --}}
@@ -1212,7 +1215,7 @@
             <li><a href="#">Layanan</a></li>
             <li><a href="#">Terms of service</a></li>
             <li><a href="#">Privacy policy</a></li>
-            <li><a href="#">SISPEGA</a></li>
+            <li><a href="{{ url('/user') }}">SISPEGA</a></li>
           </ul>
         </div>
 
