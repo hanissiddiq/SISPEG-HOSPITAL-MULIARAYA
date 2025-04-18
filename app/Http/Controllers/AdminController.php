@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Transaksi;
-use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
+use App\Models\Users;
 
 class AdminController extends Controller
 {
@@ -67,6 +69,7 @@ class AdminController extends Controller
 
         //     $data['jmluser']=User::all()->count();
             return view('dashboard',$data);
+            // return view('user/create_user',$data);
             // return view('dashboard');
         }
     // }
@@ -82,10 +85,59 @@ class AdminController extends Controller
     // /**
     //  * Store a newly created resource in storage.
     //  */
-    // public function store(Request $request)
-    // {
+    public function store(Request $request)
+    {
+
+        //validasi
+      $validated =  $request->validate(
+        [
+            'name' => 'required',
+            'email' => 'required|unique:user',
+            'password' => 'required',
+            'telp' => 'required',
+            'nik' => 'required',
+            'tgl_masuk' => 'required',
+            'role' => 'required',
+        ],
+        [
+            'name.required' => 'Nama Wajib Diisi',
+                'email.required' => 'E-mail Wajib Diisi',
+                'password.required' => 'Password Wajib Diisi',
+                'telp.required' => 'No HP Wajib Diisi',
+                'nik.required' => 'NIK Wajib Diisi',
+                'tgl_masuk.required' => 'Tanggal Masuk Wajib Diisi',
+                'role.required' => 'Role Wajib Diisi',
+            
+        ]);
+
+        //fungsi upload file
+        $file = $request->file('image');
+        $path = time().'_'.$request->name.'.'.$file->getClientOriginalExtension();
+
+        Storage::disk('local')->put('public/'.$path, file_get_contents($file));
+
+
+       $validated['password'] = Hash::make($validated['password']);
+
+        Users::create([
+            'name'      => $request->name,
+            'email'     => $request->email,
+            'password'  => $request->password,
+            // 'foto'      => $request->foto,
+            'nik'       => $request->nik,
+            'tgl_lahir' => $request->tgl_lahir,
+            'jenis_kelamin'=> $request->jenis_kelamin,
+            'telp'      => $request->telp,
+            'foto'      => $path,
+            'alamat'    => $request->alamat,
+            'status_pegawai'=> $request->status_pegawai,
+            'tgl_masuk' => $request->tgl_masuk,
+            'role'      => $request->role,
+        ]);
+
+        return Redirect::route('create_user')->withSucces(['Berhasil Menambahkan Data !']);
         
-    // }
+    }
 
     // /**
     //  * Display the specified resource.
