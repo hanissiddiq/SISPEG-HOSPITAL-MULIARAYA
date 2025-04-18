@@ -1,6 +1,6 @@
-# eLaundry Bireuen
+# SISPEGA v.10
 
-Aplikasi Laundry Kab. Bireuen Berbasis Laravel 8
+Aplikasi SISPEGA (Sistem Informasi Pegawai) Rs Mulia Raya
 
 Untuk jalanin nya
 
@@ -13,12 +13,23 @@ Untuk jalanin nya
 7. Jalankan apache & Mysql di Xampp kemudian akses PHPMYADMIN
 8. Buatlah Database kosong dengan nama `db_sispega`
 9. jalankan `php artisan storage:link` untuk membaca source gambar yang tidak muncul
-10. Jalankan perintah `php artisan migrate:fresh --seed --seeder=UserSeeder` di terminal vscode
-11. Jalankan perintah `php artisan serve`
-12. Buka http://127.0.0.1:8000/ di browser
+10. Jalankan perintah `php artisan migrate:fresh --seed --seeder=UsersSeeder` di terminal vscode
+11. Jika Gagal Jalankan `php artisan db:seed` untuk mengisi record Dummy User Ke Database
+12. Jalankan perintah `php artisan serve`
+13. Buka http://127.0.0.1:8000/ di browser
 
-</br> Username : admin@esispega.com
+</br> Username : admin@sispega.com
 </br> pass : mantap
+
+</br>
+Landing Page
+![alt text](?raw=true)
+
+</br>
+User Page
+![alt text](?raw=true)
+
+</br>
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
