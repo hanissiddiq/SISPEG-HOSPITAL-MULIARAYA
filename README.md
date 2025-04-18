@@ -22,11 +22,11 @@ Untuk jalanin nya
 </br> pass : mantap
 
 </br>
-Landing Page
+Landing Page </br>
 ![alt text](https://github.com/hanissiddiq/SISPEG-HOSPITAL-MULIARAYA/blob/dev/hanis/public/Prefiew%20Apps/Page%20Landing%20Page.png?raw=true)
 
 </br>
-User Page
+User Page </br>
 ![alt text](https://github.com/hanissiddiq/SISPEG-HOSPITAL-MULIARAYA/blob/dev/hanis/public/Prefiew%20Apps/Page%20List%20User%20(Admin).png?raw=true)
 
 </br>
