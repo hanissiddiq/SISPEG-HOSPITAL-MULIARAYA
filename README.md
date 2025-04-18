@@ -1,4 +1,4 @@
-# SISPEGA v.10
+# SISPEGA v.1.0.0
 
 Aplikasi SISPEGA (Sistem Informasi Pegawai) Rs Mulia Raya
 
@@ -23,11 +23,11 @@ Untuk jalanin nya
 
 </br>
 Landing Page
-![alt text](?raw=true)
+![alt text](https://github.com/hanissiddiq/SISPEG-HOSPITAL-MULIARAYA/blob/dev/hanis/public/Prefiew%20Apps/Page%20Landing%20Page.png?raw=true)
 
 </br>
 User Page
-![alt text](?raw=true)
+![alt text](https://github.com/hanissiddiq/SISPEG-HOSPITAL-MULIARAYA/blob/dev/hanis/public/Prefiew%20Apps/Page%20List%20User%20(Admin).png?raw=true)
 
 </br>
 
