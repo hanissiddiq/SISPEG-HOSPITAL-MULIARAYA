@@ -23,11 +23,14 @@ Untuk jalanin nya
 
 </br>
 Landing Page
-![alt text](?raw=true)
+![View Landing Page](public/Prefiew%20Apps/Page%20Landing%20Page.png)
 
 </br>
 User Page
-![alt text](?raw=true)
+![View User Page](public/Prefiew%20Apps/Page%20List%20User%20(Admin).png)
+![View User Add Page](public/Prefiew%20Apps/Page%20Add%20User%20(Admin.png))
+![View User Page](public/Prefiew%20Apps/Page%20Edit%20User%20(Admin).png)
+![View User Page](public/Prefiew%20Apps/Page%20Delete%20User%20(Admin).png)
 
 </br>
 

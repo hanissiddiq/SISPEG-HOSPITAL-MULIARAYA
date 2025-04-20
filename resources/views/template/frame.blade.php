@@ -7,7 +7,9 @@
     <meta charset="utf-8" />
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-
+    {{-- script untuk tampil di NGROK --}}
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    {{-- end script untuk tampil di NGROK --}}
     <title>{{ $page }} - SISPEGA</title>
 
     <meta name="description" content="" />
@@ -75,7 +77,7 @@
 
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
-                    <a href="{{ url('/user') }}" class="app-brand-link">
+                    <a href="{{ url('/dashboard') }}" class="app-brand-link">
                         <span class="app-brand-logo demo">
                             <span style="color: var(--bs-primary)">
                                 {{-- <img src="{{url('favicon.png')}}" class="img-fluid" width="20px"> --}}
@@ -103,7 +105,7 @@
                 <ul class="menu-inner py-1">
                     <!-- Dashboards -->
                     <li class="menu-item {{ $page == 'Beranda' ? 'active' : '' }}">
-                        <a href="{{ url('user') }}" class="menu-link">
+                        <a href="{{ url('/dashboard') }}" class="menu-link">
                             <i class="menu-icon tf-icons mdi mdi-home-outline"></i>
                             <div data-i18n="Beranda">Beranda</div>
                         </a>
@@ -218,7 +220,7 @@
 
                     <!-- Icons -->
                     <li class="menu-item {{ $page == 'Pengguna' ? 'active' : '' }}">
-                        <a href="{{ url('user/') }}" class="menu-link ">
+                        <a href="{{ url('users/') }}" class="menu-link ">
                             <i class="menu-icon tf-icons mdi mdi-account-outline"></i>
                             <div data-i18n="Pengguna">Pengguna</div>
                         </a>

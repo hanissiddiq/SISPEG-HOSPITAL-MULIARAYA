@@ -283,8 +283,13 @@ end source code adit --}}
                                         <div class="col-7">
                                             {{-- <img src="{{ $data->foto }}" alt="Foto" width="60" height="60"
                                                 class="rounded"> --}}
-                                            <img src="{{ asset('uploads/' . $data->foto) }}" alt="Foto" width="60"
-                                                height="60" class="rounded">
+                                            @if (Str::startsWith($data->foto, 'http'))
+                                                <img src="{{ $data->foto }}" alt="Foto" width="60" height="60"
+                                                    class="rounded">
+                                            @else
+                                                <img src="{{ asset('uploads/' . $data->foto) }}" alt="Foto"
+                                                    width="60" height="60" class="rounded">
+                                            @endif
                                         </div>
                                     </div>
                                 </td>
@@ -319,11 +324,32 @@ end source code adit --}}
                                         <div class="col-7"{{ $tampil_class }}>{{ $tampil_role }}</div>
                                     </div>
                                 </td>
-                                <td class="text-center"><a class="btn btn-warning btn-sm mb-1 w-100"
-                                        href="{{ url('user/detail/' . $data->id) }}">Edit</a><br><a
-                                        class="btn btn-danger btn-sm w-100 {{ $hidden_style }}"
+
+                                <td class="text-center">
+                                    <!-- start Tombol Edit -->
+
+                                    <button type="button" class="btn btn-warning btn-sm mb-1 w-100 btn-edit-user"
+                                        data-bs-toggle="modal" data-bs-target="#modal-edit-user{{ $data->id }}"
+                                        data-id="{{ $data->id }}" data-name="{{ $data->name }}"
+                                        data-email="{{ $data->email }}" data-nik="{{ $data->nik }}"
+                                        data-tgl_lahir="{{ $data->tgl_lahir }}"
+                                        data-jenis_kelamin="{{ $data->jenis_kelamin }}" data-telp="{{ $data->telp }}"
+                                        data-foto="{{ asset('uploads/' . $data->foto) }}"
+                                        data-alamat="{{ $data->alamat }}"
+                                        data-status_pegawai="{{ $data->status_pegawai }}"
+                                        data-tgl_masuk="{{ $data->tgl_masuk }}" data-role="{{ $data->role }}">
+                                        Edit
+                                    </button>
+
+                                    <!-- end Tombol Edit -->
+                                    {{-- <a class="btn btn-warning btn-sm mb-1 w-100 data-*" data-bs-toggle="modal"
+                                        data-bs-target="#Modaledituser"
+                                        href="{{ url('user/detail/' . $data->id) }}">Edit</a>
+                                        <br> --}}
+                                    <a class="btn btn-danger btn-sm w-100 {{ $hidden_style }}"
                                         href="{{ url('user/' . $data->id) }}"
-                                        onclick="return confirm('Yakin Menghapus Data?')">Hapus</a></td>
+                                        onclick="return confirm('Yakin Menghapus Data?')">Hapus</a>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -337,7 +363,7 @@ end source code adit --}}
 
 
 
-    <!-- Modal -->
+    <!-- Modal Tambah User -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -349,38 +375,38 @@ end source code adit --}}
                     <form action="{{ url('/user/create') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group mb-2">
-                            <label class="font-weight-bold">Nama</label>
-                            <input type="text" name="name" class="form-control" placeholder="Nama" maxlength="200"
-                                value="{{ old('nama') }}">
+                            <label for="name" class="font-weight-bold">Nama</label>
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Nama"
+                                maxlength="200" value="{{ old('nama') }}">
                         </div>
 
                         <div class="form-group mb-2">
-                            <label class="font-weight-bold">E-mail</label>
-                            <input type="email" name="email" class="form-control" placeholder="E-mail" maxlength="200"
-                                value="{{ old('email') }}">
+                            <label for="email" class="font-weight-bold">E-mail</label>
+                            <input type="email" id="email" name="email" class="form-control"
+                                placeholder="E-mail" maxlength="200" value="{{ old('email') }}">
                         </div>
 
                         <div class="form-group mb-2">
-                            <label class="font-weight-bold">Password</label>
-                            <input type="text" name="password" class="form-control" placeholder="Password"
-                                maxlength="15" value="{{ old('password') }}" minlength="8">
+                            <label for="password" class="font-weight-bold">Password</label>
+                            <input id="password" type="text" name="password" class="form-control"
+                                placeholder="Password" maxlength="15" value="{{ old('password') }}" minlength="8">
                         </div>
 
                         <div class="form-group mb-2">
-                            <label class="font-weight-bold">NIK</label>
-                            <input type="number" name="nik" class="form-control" placeholder="NIK" maxlength="200"
-                                value="{{ old('nik') }}">
+                            <label for="nik" class="font-weight-bold">NIK</label>
+                            <input id="nik" type="number" name="nik" class="form-control" placeholder="NIK"
+                                maxlength="200" value="{{ old('nik') }}">
                         </div>
 
                         <div class="form-group mb-2">
-                            <label class="font-weight-bold">Tanggal Lahir</label>
-                            <input type="date" name="tgl_lahir" class="form-control" placeholder="Tgl Lahir"
-                                value="{{ old('tgl_lahir') }}">
+                            <label for="tgl_lahir" class="font-weight-bold">Tanggal Lahir</label>
+                            <input id="tgl_lahir" type="date" name="tgl_lahir" class="form-control"
+                                placeholder="Tgl Lahir" value="{{ old('tgl_lahir') }}">
                         </div>
 
                         <div class="form-group mb-2">
-                            <label class="font-weight-bold">Jenis Kelamin</label>
-                            <select name="jenis_kelamin" class="form-control">
+                            <label for="jenis_kelamin" class="font-weight-bold">Jenis Kelamin</label>
+                            <select id="jenis_kelamin" name="jenis_kelamin" class="form-control">
                                 <option hidden selected value="">-- Jenis Kelamin --</option>
                                 <option value="Pria">Pria</option>
                                 <option value="Wanita">Wanita</option>
@@ -395,37 +421,38 @@ end source code adit --}}
                         </div> --}}
 
                         <div class="form-group mb-2">
-                            <label class="font-weight-bold">No. Hp</label>
-                            <input type="number" name="telp" class="form-control" placeholder="Nomer Handphone"
-                                value="{{ old('telp') }}">
+                            <label for="telp" class="font-weight-bold">No. Hp</label>
+                            <input id="telp" type="number" name="telp" class="form-control"
+                                placeholder="Nomer Handphone" value="{{ old('telp') }}">
                         </div>
 
                         <div class="form-group mb-2">
-                            <label class="font-weight-bold">Foto</label>
-                            <input type="file" name="foto" class="form-control" placeholder="Foto"
+                            <label for="foto" class="font-weight-bold">Foto</label>
+                            <input id="foto" type="file" name="foto" class="form-control" placeholder="Foto"
                                 value="{{ old('foto') }}">
                         </div>
 
                         <div class="form-group mb-2">
-                            <label class="font-weight-bold">Alamat</label>
-                            <input type="textarea" name="alamat" class="form-control" placeholder="Alamat"
-                                maxlength="200">
+                            <label for="alamat" class="font-weight-bold">Alamat</label>
+                            <input id="alamat" type="textarea" name="alamat" class="form-control"
+                                placeholder="Alamat" maxlength="200">
                         </div>
 
                         <div class="form-group mb-2">
-                            <label class="font-weight-bold">Status Pegawai</label>
-                            <input type="text" name="status_pegawai" class="form-control"
+                            <label for="status_pegawai" class="font-weight-bold">Status Pegawai</label>
+                            <input id="status_pegawai" type="text" name="status_pegawai" class="form-control"
                                 placeholder="Status Pegawai">
                         </div>
 
                         <div class="form-group mb-2">
-                            <label class="font-weight-bold">Tanggal Masuk</label>
-                            <input type="date" name="tgl_masuk" class="form-control" placeholder="Tanggal Masuk">
+                            <label for="tgl_masuk" class="font-weight-bold">Tanggal Masuk</label>
+                            <input id="tgl_masuk" type="date" name="tgl_masuk" class="form-control"
+                                placeholder="Tanggal Masuk">
                         </div>
 
                         <div class="form-group mb-2">
-                            <label class="font-weight-bold">Role</label>
-                            <select name="role" class="form-control">
+                            <label for="role" class="font-weight-bold">Role</label>
+                            <select id="role" name="role" class="form-control">
                                 <option hidden selected value="">-- Role --</option>
                                 <option value="0">Super Admin</option>
                                 <option value="1">Admin</option>
@@ -441,4 +468,149 @@ end source code adit --}}
             </div>
         </div>
     </div>
+
+
+    <!-- Modal Edit User -->
+    @foreach ($users as $data)
+        <div class="modal fade" id="modal-edit-user{{ $data->id }}" tabindex="-1"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <form action="{{ url('user/update/') . $data->id }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="id" id="edit-id" value="{{ $data->id }}">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit Pengguna</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body row">
+
+                            <div class="col-md-6 mb-2">
+                                <label>Nama</label>
+                                <input type="text" value="{{ $data->name }}" name="name" id="edit-name"
+                                    class="form-control">
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label>Email</label>
+                                <input type="email" value="{{ $data->email }}" name="email" id="edit-email"
+                                    class="form-control">
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <label>NIK</label>
+                                <input type="text" value="{{ $data->nik }}" name="nik" id="edit-nik"
+                                    class="form-control">
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <label>Password <small>(kosongkan jika tidak diganti)</small></label>
+                                <input type="password" value="{{ $data->password }}" name="password"
+                                    class="form-control">
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <label>Jenis Kelamin</label>
+                                <select name="jenis_kelamin" id="edit-jenis_kelamin" class="form-control">
+                                    @if ($data->jenis_kelamin == 'Pria')
+                                        <option value="Pria" selected>Pria</option>
+                                    @elseif ($data->jenis_kelamin == 'Wanita')
+                                        <option value="Wanita" selected>Wanita</option>
+                                    @endif
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <label>No. Telp</label>
+                                <input type="text" value="{{ $data->telp }}" name="telp" id="edit-telp"
+                                    class="form-control">
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <label>Tanggal Lahir</label>
+                                <input type="date" value="{{ $data->tgl_lahir }}" name="tgl_lahir"
+                                    id="edit-tgl_lahir" class="form-control">
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <label>Tanggal Masuk</label>
+                                <input type="date" value="{{ $data->tgl_masuk }}" name="tgl_masuk"
+                                    id="edit-tgl_masuk" class="form-control">
+                            </div>
+
+                            <div class="col-md-12
+                                mb-2">
+                                <label>Foto</label>
+                                <img id="edit-preview-foto" width="100" class="mt-2" style="display: none;">
+                                <input type="file" name="foto" class="form-control">
+                            </div>
+
+                            <div class="col-md-12 mb-2">
+                                <label>Alamat</label>
+                                <textarea name="alamat" id="edit-alamat" class="form-control">{{ $data->alamat }}</textarea>
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <label>Status Pegawai</label>
+                                <select name="status_pegawai" id="edit-status_pegawai" class="form-control">
+                                    @if ($data->status_pegawai == 'Kontrak')
+                                        <option value="Kontrak" selected>Kontrak</option>
+                                    @elseif ($data->status_pegawai == 'PNS')
+                                        <option value="PNS" selected>PNS</option>
+                                    @elseif ($data->status_pegawai == 'Honor')
+                                        <option value="Honor" selected>Honor</option>
+                                    @else
+                                        <option value="Karyawan Tetap">Karyawan Tetap</option>
+                                    @endif
+                                </select>
+                            </div>
+
+
+                            <div class="col-md-6 mb-2">
+                                <label>Role</label>
+                                <select name="role" id="edit-role" class="form-control">
+                                    @if ($data->role == '0')
+                                        <option value="0" selected>Super Admin</option>
+                                    @elseif ($data->role == '1')
+                                        <option value="1">Admin</option>
+                                    @else
+                                        <option value="2">User</option>
+                                    @endif
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    @endforeach
+@endsection
+
+
+{{-- Script Ambil Data yang sudah ada ke form --}}
+@section('scripts')
+    {{-- <script>
+        $(document).ready(function() {
+            $('.btn-edit-user').on('click', function() {
+                const data = $(this).data();
+                $('#edit-id').val(data.id);
+                $('#edit-name').val(data.name);
+                $('#edit-email').val(data.email);
+                $('#edit-nik').val(data.nik);
+                $('#edit-tgl_lahir').val(data.tgl_lahir);
+                $('#edit-jenis_kelamin').val(data.jenis_kelamin);
+                $('#edit-telp').val(data.telp);
+                $('#edit-preview-foto').attr('src', data.foto).show();
+                $('#edit-alamat').val(data.alamat);
+                $('#edit-status_pegawai').val(data.status_pegawai);
+                $('#edit-tgl_masuk').val(data.tgl_masuk);
+                $('#edit-role').val(data.role);
+            });
+        });
+    </script> --}}
 @endsection

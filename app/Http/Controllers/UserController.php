@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -17,7 +18,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $data['page'] = "Users";
+        $data['page'] = "Pengguna";
         $data['sub'] = "";
         $data['users'] = Users::all()->sortBy('role');
         return view('user/list_user', $data);
@@ -96,18 +97,84 @@ class UserController extends Controller
 
 
             // 'foto'      => $request->foto,
-            'foto'      => $path,
-            'nik'       => $request->nik,
-            'tgl_lahir' => $request->tgl_lahir,
+            'foto'          => $path,
+            'nik'           => $request->nik,
+            'tgl_lahir'     => $request->tgl_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
-            'telp'      => $request->telp,
-            'alamat'    => $request->alamat,
+            'telp'          => $request->telp,
+            'alamat'        => $request->alamat,
             'status_pegawai' => $request->status_pegawai,
-            'tgl_masuk' => $request->tgl_masuk,
-            'role'      => $request->role,
+            'tgl_masuk'     => $request->tgl_masuk,
+            'role'          => $request->role,
         ]);
 
         // return Redirect::route('create_user')->withSucces(['Berhasil Menambahkan Data !']);
         return Redirect::route('create_user')->with('success', 'Berhasil Menambahkan Data!');
+    }
+
+
+    //fungsi edit user
+    public function edit($id)
+    {
+        $user = Users::findOrFail($id);
+        return view('user.edit_user', compact('user'));
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'id'              => 'required|exists:users,id',
+            'name'            => 'required|string|max:255',
+            'email'           => 'required|email|unique:users,email,' . $request->id,
+            'password'        => 'nullable|string|min:6',
+            'nik'             => 'required|unique:users,nik,' . $request->id,
+            'tgl_lahir'       => 'required|date',
+            'jenis_kelamin'   => 'required|in:Pria,Wanita',
+            'telp'            => 'required|string',
+            'alamat'          => 'required|string',
+            'status_pegawai'  => 'required|string',
+            'tgl_masuk'       => 'required|date',
+            'role'            => 'required|in:0,1,2',
+            'foto'            => 'nullable|image|max:2048',
+        ]);
+
+        $user = Users::findOrFail($request->id);
+        $user->name           = $request->name;
+        $user->email          = $request->email;
+        $user->nik            = $request->nik;
+        $user->tgl_lahir      = $request->tgl_lahir;
+        $user->jenis_kelamin  = $request->jenis_kelamin;
+        $user->telp           = $request->telp;
+        $user->alamat         = $request->alamat;
+        $user->status_pegawai = $request->status_pegawai;
+        $user->tgl_masuk      = $request->tgl_masuk;
+        $user->role           = $request->role;
+
+        if ($request->password) {
+            $user->password = Hash::make($request->password);
+        }
+
+        if ($request->hasFile('foto')) {
+
+            if ($user->foto && File::exists(public_path('uploads/' . $user->foto))) {
+                File::delete(public_path('uploads/' . $user->foto));
+            }
+            $file = $request->file('foto');
+            $filename = date('Ymd_His') . '_' . $request->name . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads'), $filename);
+
+            $user->foto = $filename;
+        }
+
+        $user->save();
+
+        return redirect('/users')->with('success', 'User berhasil diperbarui.');
+    }
+
+    public function destroy(string $id)
+    {
+        $data = Users::find($id);
+        $data->delete();
+        return redirect('/users')->with('success', 'User berhasil diperbarui.');
     }
 }

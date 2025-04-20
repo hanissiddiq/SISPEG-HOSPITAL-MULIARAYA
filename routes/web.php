@@ -17,7 +17,8 @@ use App\Http\Controllers\UserController;
 // Route HomePage
 Route::get('/', [HomePageController::class, 'index']);
 
-//Route Admin Area
+//Route Admin Beranda Area
+Route::get('/dashboard', [AdminController::class, 'index']);
 
 
 
@@ -35,8 +36,16 @@ Route::get('/users', [UserController::class, 'index'])->name('create_user'); // 
 // Simpan user baru
 Route::post('/user/create', [UserController::class, 'store'])->name('store_user');
 
+// update user baru
+// Route::post('/user/update', [UserController::class, 'update'])->name('user_edit');
+Route::put('/user/update/{id}', [UserController::class, 'update'])->name('user_update');
+
+// Delete user
+Route::get('/user/{id}', [UserController::class, 'destroy'])->name('user_delete');
+
+
 // Menampilkan data user (misalnya via AJAX / detail untuk edit)
-Route::get('/user/detail/{id}', [UserController::class, 'edit'])->name('user_edit');
+// Route::get('/user/detail/{id}', [UserController::class, 'edit'])->name('user_edit');
 
 // Update data user
 Route::put('/user/{id}', [UserController::class, 'update'])->name('user_update');

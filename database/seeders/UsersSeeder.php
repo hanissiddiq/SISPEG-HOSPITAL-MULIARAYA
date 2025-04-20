@@ -20,7 +20,7 @@ class UsersSeeder extends Seeder
         Users::create(array(
             'name'              => 'Administrator Sispega',
             'email'             => 'admin@sispega.com',
-            'email_verfied_at'  => '2025-04-20 05:25:30',
+            'email_verified_at'  => '2025-04-20 05:25:30',
             'password'          => bcrypt('mantap'),
             'foto'              => 'avatar.png',
             'nik'               => '11111153103980005',

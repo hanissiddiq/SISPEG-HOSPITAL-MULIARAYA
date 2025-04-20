@@ -41,11 +41,11 @@ class UsersFactory extends Factory
             'password'          => Hash::make($rawPassword),
             'remember_token'    => Str::random(10),
             'nik'               => fake()->numerify('111##########'),
-            'tgl_lahir'         => fake()->date('d-M-Y', '-20 years'),
+            'tgl_lahir'         => fake()->date('Y-m-d', '-20 years'),
             'jenis_kelamin'     => fake()->randomElement(['Pria', 'Wanita']),
             'telp'              => '08' . fake()->numerify('##########'),
             'alamat'            => fake('id_ID')->address(),
-            'status_pegawai'    => fake()->randomElement(['Tetap', 'Kontrak', 'Honor', 'PNS']),
+            'status_pegawai'    => fake()->randomElement(['Karyawan Tetap', 'Kontrak', 'Honor', 'PNS']),
             'tgl_masuk'         => fake()->date('Y-m-d', '-1 years'),
             'role'              => fake()->numberBetween(0, 2), // 0 = Super Admin, 1 = Admin, 2 = User
             'foto'              => 'https://i.pravatar.cc/150?u=' . fake()->unique()->safeEmail(), // dummy foto
